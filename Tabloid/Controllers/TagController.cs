@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Repositories;
@@ -20,6 +20,15 @@ namespace Tabloid.Controllers
         {
             return Ok(_tagRepository.GetAllTags());
         }
-
+        public IActionResult AddTag()
+        {
+            return Ok();
+        }
+        [HttpPost]
+        public IActionResult AddTag(Models.Tag tag)
+        {
+            _tagRepository.AddTag(tag);
+            return Ok();
+        }
     }
 }
