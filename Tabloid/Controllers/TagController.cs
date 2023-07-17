@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Repositories;
+using Tabloid.Models;
+using System.Collections.Generic;
 
 namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TagController : ControllerBase
+    public class TagController : Controller
     {
         private readonly ITagRepository _tagRepository;
         public TagController(ITagRepository tagRepository)
@@ -16,19 +18,15 @@ namespace Tabloid.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTag()
+        public IActionResult GetAllTag()
         {
             return Ok(_tagRepository.GetAllTags());
         }
-        public IActionResult AddTag()
-        {
-            return Ok();
-        }
         [HttpPost]
-        public IActionResult AddTag(Models.Tag tag)
+        public IActionResult AddTag(Tag tag)
         {
             _tagRepository.AddTag(tag);
-            return Ok();
+            return Ok(_tagRepository.GetAllTags());
         }
     }
 }

@@ -54,9 +54,8 @@ namespace Tabloid.Repositories
                        INSERT INTO Tag (Name)
                         OUTPUT INSERTED.ID
                        VALUES (@Name)";
-                    DbUtils.AddParameter(cmd, "@Name", tag.Name);
+                    cmd.Parameters.AddWithValue("@Name", tag.Name);
                     tag.Id = (int)cmd.ExecuteScalar();
-                    cmd.ExecuteNonQuery();
                 }
             }
         }
