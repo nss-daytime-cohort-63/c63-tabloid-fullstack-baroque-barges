@@ -6,6 +6,6 @@ namespace Tabloid.Repositories
     public interface IPostRepository
     {
         List<Post> GetAllPublishedPosts();
-        List<Post> CurrentUsersPosts(int userProfileId);
+       List<Post> CurrentUsersPosts(int userProfileId);
     }
 }

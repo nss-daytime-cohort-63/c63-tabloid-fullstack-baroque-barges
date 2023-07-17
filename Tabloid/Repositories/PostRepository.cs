@@ -55,7 +55,7 @@ namespace Tabloid.Repositories
         }
 
 
-        public List<Post> CurrentUsersPosts(int userProfileId)
+       public List<Post> CurrentUsersPosts(int userProfileId)
         {
             using (SqlConnection conn = Connection)
             {

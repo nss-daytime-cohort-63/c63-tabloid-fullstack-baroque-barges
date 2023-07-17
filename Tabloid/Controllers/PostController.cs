@@ -24,7 +24,7 @@ namespace Tabloid.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetMyPost()
+        public IActionResult GetMyPost(int userProfileId)
         {
             int userId = GetCurrentUserProfileId();
             return Ok(_postRepository.CurrentUsersPosts(userId));
