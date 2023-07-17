@@ -31,7 +31,12 @@ namespace Tabloid.Controllers
             _categoryRepository.Add(category);
             return Ok(_categoryRepository.GetAll());
         }
-
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _categoryRepository.Delete(id);
+            return Ok(_categoryRepository.GetAll());
+        }
         
     }
 }

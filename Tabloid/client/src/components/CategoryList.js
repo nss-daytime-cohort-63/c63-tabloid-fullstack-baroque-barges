@@ -44,7 +44,7 @@ export const CategoryList = () => {
 
     return (
         <div>
-            {categories.map((category) => (<Category category={category} key={category.id} />))}
+            {categories.map((category) => (<Category category={category} key={category.id} setCategories={setCategories} />))}
             <form onSubmit={handleSubmit}>
                 <label>
                     Add New Category:
