@@ -2,6 +2,7 @@
 using Tabloid.Models;
 using Tabloid.Utils;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace Tabloid.Repositories
 {
@@ -126,6 +127,57 @@ namespace Tabloid.Repositories
             }
         }
 
+        public UserProfile GetByUserId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                       SELECT u.id, u.FirstName, u.LastName, u.DisplayName, u.Email,
+                              u.CreateDateTime, u.ImageLocation, u.UserTypeId,
+                              ut.[Name] AS UserTypeName
+                         FROM UserProfile u
+                              LEFT JOIN UserType ut ON u.UserTypeId = ut.id
+                        WHERE u.id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    UserProfile userProfile = null;
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        userProfile = new UserProfile()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Email = reader.GetString(reader.GetOrdinal("Email")),
+                            FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                            LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                            DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
+                            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                            UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                            UserType = new UserType()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                Name = reader.GetString(reader.GetOrdinal("UserTypeName"))
+                            },
+                        };
+
+                        if (!reader.IsDBNull(reader.GetOrdinal("ImageLocation")))
+                        {
+                            userProfile.ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation"));
+                        }
+                    }
+
+                    reader.Close();
+
+                    return userProfile;
+                }
+            }
+        }
+
+       
         /*
         public UserProfile GetByFirebaseUserId(string firebaseUserId)
         {

@@ -7,7 +7,7 @@ import PostList from "./PostList";
 import UserProfileList from "./UserProfileList";
 import TagList from "./TagList";
 
-export default function ApplicationViews({ isLoggedIn }) {
+export default function ApplicationViews({ isLoggedIn, role }) {
   return (
     <main>
       <Routes>
@@ -22,7 +22,7 @@ export default function ApplicationViews({ isLoggedIn }) {
           />
           <Route
             path="userProfiles"
-            element={isLoggedIn ? <UserProfileList /> : <Navigate to="/login" />}
+            element={isLoggedIn && role == 1 ? <UserProfileList /> : <Navigate to="/login" />}
           />
           <Route
             path="tags"
