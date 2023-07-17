@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Tabloid.Repositories;
 
-
 namespace Tabloid
 {
     public class Startup
@@ -25,6 +24,7 @@ namespace Tabloid
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IPostRepository, PostRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
