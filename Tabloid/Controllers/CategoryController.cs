@@ -12,7 +12,7 @@ namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : Controller
+    public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository;
 
@@ -25,7 +25,24 @@ namespace Tabloid.Controllers
         {
             return Ok(_categoryRepository.GetAll());
         }
-
+        [HttpPost]
+        public IActionResult Create(Category category)
+        {
+            _categoryRepository.Add(category);
+            return Ok(_categoryRepository.GetAll());
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _categoryRepository.Delete(id);
+            return Ok(_categoryRepository.GetAll());
+        }
+        [HttpPut]
+        public IActionResult Edit(Category category)
+        {
+            _categoryRepository.Update(category);
+            return Ok(_categoryRepository.GetAll());
+        }
         
     }
 }
