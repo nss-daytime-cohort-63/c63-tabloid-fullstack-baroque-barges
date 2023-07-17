@@ -4,12 +4,14 @@ export const Category = ({ category, setCategories }) => {
     const baseUrl = '/api/Category/'
     const handleDelete = (e) => {
         e.preventDefault();
-        fetch(baseUrl + `${category.id}`, {
-            method: "DELETE"
-        }).then(res => res.json())
-            .then(response => {
-                setCategories(response);
-            })
+        if (window.confirm("Are you sure you want to delete this category?")) {
+            fetch(baseUrl + `${category.id}`, {
+                method: "DELETE"
+            }).then(res => res.json())
+                .then(response => {
+                    setCategories(response);
+                })
+        }
     }
     return (
         <div>
