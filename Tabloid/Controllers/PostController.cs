@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Repositories;
@@ -20,6 +21,19 @@ namespace Tabloid.Controllers
         public IActionResult GetPost()
         {
             return Ok(_postRepository.GetAllPublishedPosts());
+        }
+
+        [HttpGet]
+        public IActionResult GetMyPost()
+        {
+            int userId = GetCurrentUserProfileId();
+            return Ok(_postRepository.CurrentUsersPosts(userId));
+        }
+
+        private int GetCurrentUserProfileId()
+        {
+            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return int.Parse(id);
         }
     }
 }

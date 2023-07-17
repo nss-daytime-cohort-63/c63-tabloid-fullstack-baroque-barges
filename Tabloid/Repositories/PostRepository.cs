@@ -55,20 +55,19 @@ namespace Tabloid.Repositories
         }
 
 
-        public Post GetByFirebaseUserId(string firebaseUserId)
+        public List<Post> CurrentUsersPosts(int userProfileId)
         {
-            using (var conn = Connection)
+            using (SqlConnection conn = Connection)
             {
                 conn.Open();
-                using (var cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT p.Id, p.Title, p.Content, 
+                         SELECT p.Id, p.Title, p.Content, 
                               p.ImageLocation AS HeaderImage,
-                              p.CreateDateTime, p.PublishDateTime AS PostPublishDateTime, p.IsApproved,
+                              p.CreateDateTime, p.PublishDateTime, p.IsApproved,
                               p.CategoryId, p.UserProfileId,
                               c.[Name] AS CategoryName,
-                                u.Id,
                               u.FirstName, u.LastName, u.DisplayName, 
                               u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
                               u.UserTypeId, 
@@ -77,37 +76,23 @@ namespace Tabloid.Repositories
                               LEFT JOIN Category c ON p.CategoryId = c.id
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                        WHERE PostPublishDateTime < SYSDATETIME() AND p.UserProfileId = u.Id
-                        ORDER BY PostPublishDateTime DESC";
+                        WHERE UserProfileId = @userProfileId
+                    ";
 
-                    DbUtils.AddParameter(cmd, "@FirebaseUserId", firebaseUserId);
-
-                    Post post = null;
+                    cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
 
                     var reader = cmd.ExecuteReader();
-                    if (reader.Read())
+
+                    var posts = new List<Post>();
+
+                    while (reader.Read())
                     {
-                        post = new Post()
-                        {
-                            Id = DbUtils.GetInt(reader, "Id"),
-                            FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
-                            FirstName = DbUtils.GetString(reader, "FirstName"),
-                            LastName = DbUtils.GetString(reader, "LastName"),
-                            DisplayName = DbUtils.GetString(reader, "DisplayName"),
-                            Email = DbUtils.GetString(reader, "Email"),
-                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
-                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
-                            UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
-                            UserType = new UserType()
-                            {
-                                Id = DbUtils.GetInt(reader, "UserTypeId"),
-                                Name = DbUtils.GetString(reader, "UserTypeName"),
-                            }
-                        };
+                        posts.Add(NewPostFromReader(reader));
                     }
+
                     reader.Close();
 
-                    return post;
+                    return posts;
                 }
             }
         }
