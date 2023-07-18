@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Post } from "./Post";
 
 export const MyPostList = () => {
-    const baseUrl = '/api/Post/'
+    const baseUrl = '/api/Post/GetMyPost'
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
@@ -14,9 +14,9 @@ export const MyPostList = () => {
 
     return (
         <div>
-            {posts.map((post) => (<Post post={post} key={post.id} />))}
+            {posts.map((myPost) => (<Post myPost={myPost} key={myPost.id} />))}
         </div>
     )
 }
 
-export default PostList
+export default MyPostList

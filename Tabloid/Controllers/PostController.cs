@@ -23,8 +23,8 @@ namespace Tabloid.Controllers
             return Ok(_postRepository.GetAllPublishedPosts());
         }
 
-        [HttpGet]
-        public IActionResult GetMyPost(int userProfileId)
+        [HttpGet("GetMyPost")]
+        public IActionResult GetMyPost()
         {
             int userId = GetCurrentUserProfileId();
             return Ok(_postRepository.CurrentUsersPosts(userId));

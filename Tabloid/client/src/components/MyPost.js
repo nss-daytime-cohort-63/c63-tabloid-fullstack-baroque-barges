@@ -1,11 +1,11 @@
-export const Post = ({ post }) => {
+export const MyPost = ({ myPost }) => {
     return (
         <div>
-            <div>{post.title}</div>
-            <div>{post.content}</div>
-            <img src={post.imageLocation} alt="image" />
-            <div>{post.publishDateTime}</div>
-            <div>{post.userProfile.displayName}</div>
+            <div>{myPost.title}</div>
+            <div>{myPost.content}</div>
+            <img src={myPost.imageLocation} alt="image" />
+            <div>{myPost.publishDateTime}</div>
+            <div>{myPost.userProfile.displayName}</div>
         </div>
     )
 }
