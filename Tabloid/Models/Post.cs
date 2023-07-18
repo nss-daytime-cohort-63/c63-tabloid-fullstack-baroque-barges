@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Tabloid.Models
 {
@@ -27,5 +28,6 @@ namespace Tabloid.Models
                 return estimatedTime;
             }
         }
+        public List<Comment> Comments { get; set; }
     }
 }
