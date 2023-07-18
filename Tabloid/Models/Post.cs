@@ -14,5 +14,18 @@ namespace Tabloid.Models
         public int CategoryId { get; set; }
         public UserProfile UserProfile { get; set; }
         public int UserProfileId { get; set; }
+        public int EstimatedReadTime
+        {
+            get
+            {
+                if (Content == null)
+                {
+                    return 0;
+                }
+                int wordCount = Content.Split(new[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
+                int estimatedTime = (int)Math.Ceiling((double)wordCount / 265);
+                return estimatedTime;
+            }
+        }
     }
 }
