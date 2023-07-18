@@ -35,7 +35,7 @@ export default function ApplicationViews({ isLoggedIn }) {
             element={isLoggedIn ? <TagAddForm /> : <Navigate to="/login" />}
           />
           <Route
-            path="index/details/:postId"
+            path="index/:postId"
             element={isLoggedIn ? <PostDetails /> : <Navigate to="/login" />}
           />
           <Route path="login" element={<Login />} />

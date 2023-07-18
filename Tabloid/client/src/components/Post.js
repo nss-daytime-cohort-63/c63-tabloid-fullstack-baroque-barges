@@ -13,7 +13,7 @@ export const Post = ({ post }) => {
             <img src={post.imageLocation} alt="image" />
             <div>{post.publishDateTime}</div>
             <div>{post.userProfile.displayName}</div>
-            <button onClick={() => navigate(`/index/details/${post.id}`)}>Post Details</button>
+            <button onClick={() => navigate(`/index/${post.id}`)}>Post Details</button>
         </div>
     )
 }
