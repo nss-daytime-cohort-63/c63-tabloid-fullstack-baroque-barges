@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+appsettings.Local.json
+appsettings.json
+Tabloid.csproj
+Properties/
