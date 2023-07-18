@@ -6,10 +6,11 @@ import CategoryList from "./CategoryList"
 import PostList from "./PostList";
 import { TagList } from "./TagList";
 import MyPostList from "./MyPostList";
+import UserProfileList from "./UserProfileList";
 import { TagAddForm } from "./TagAddForm";
 import { PostDetails } from "./PostDetails";
 
-export default function ApplicationViews({ isLoggedIn }) {
+export default function ApplicationViews({ isLoggedIn, profile }) {
   return (
     <main>
       <Routes>
@@ -21,6 +22,10 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Route
             path="categories"
             element={isLoggedIn ? <CategoryList /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="userProfiles"
+            element={isLoggedIn ? <UserProfileList profile={profile} /> : <Navigate to="/login" />}
           />
           <Route
             path="tags"

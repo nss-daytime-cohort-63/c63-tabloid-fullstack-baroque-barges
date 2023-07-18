@@ -25,6 +25,16 @@ const _saveUser = (userProfile) => {
     }).then(resp => resp.json()));
 };
 
+export const me = () => {
+  return getToken().then((token) =>
+    fetch(`${_apiUrl}/me`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((resp) => resp.json()),
+  );
+};
 
 
 export const getToken = () => firebase.auth().currentUser.getIdToken();
@@ -55,9 +65,9 @@ export const logout = () => {
 
 export const register = (userProfile, password) => {
   return firebase.auth().createUserWithEmailAndPassword(userProfile.email, password)
-    .then((createResponse) => _saveUser({ 
-      ...userProfile, 
-      firebaseUserId: createResponse.user.uid 
+    .then((createResponse) => _saveUser({
+      ...userProfile,
+      firebaseUserId: createResponse.user.uid
     }));
 };
 
