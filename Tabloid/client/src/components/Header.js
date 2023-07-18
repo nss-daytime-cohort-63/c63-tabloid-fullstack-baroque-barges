@@ -31,6 +31,10 @@ export default function Header({ isLoggedIn }) {
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/categories">Categories</NavLink>
                 </NavItem>
+                <NavLink tag={RRNavLink} to="/tags">Tags</NavLink>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/myPosts">My Posts</NavLink>
+                </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/tags">Tags</NavLink>
                 </NavItem>
@@ -59,6 +63,6 @@ export default function Header({ isLoggedIn }) {
           </Nav>
         </Collapse>
       </Navbar>
-    </div>
+    </div >
   );
 }
