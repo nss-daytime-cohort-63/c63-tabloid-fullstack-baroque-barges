@@ -8,7 +8,7 @@ import UserProfileList from "./UserProfileList";
 import TagList from "./TagList";
 import { TagAddForm } from "./TagAddForm";
 
-export default function ApplicationViews({ isLoggedIn, role }) {
+export default function ApplicationViews({ isLoggedIn, profile }) {
   return (
     <main>
       <Routes>
@@ -23,7 +23,7 @@ export default function ApplicationViews({ isLoggedIn, role }) {
           />
           <Route
             path="userProfiles"
-            element={isLoggedIn && role == 1 ? <UserProfileList /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <UserProfileList profile={profile} /> : <Navigate to="/login" />}
           />
           <Route
             path="tags"

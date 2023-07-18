@@ -4,7 +4,7 @@ import { UserProfile } from "./UserProfile";
 
 
 
-export const UserProfileList = () => {
+export const UserProfileList = ({ profile }) => {
     const baseUrl = '/api/UserProfile/'
     const [userProfiles, setUserProfiles] = useState([])
 
@@ -16,26 +16,14 @@ export const UserProfileList = () => {
     }
         , []
     )
-    // return getToken().then((token) => {
-    //     return fetch(baseUrl, {
-    //         method: "GET",
-    //         headers: {
-    //             Authorization: `Bearer ${token}`,
-    //         },
-    //     }).then((resp) => {
-    //         if (resp.ok) {
-    //             return resp.json();
-    //         } else {
-    //             throw new Error(
-    //                 "An unknown error occurred while trying to get users."
-    //             );
-    //         }
-    //     })
-    //
 
     return (
         <div>
-            {userProfiles.map((userProfile) => (<UserProfile userProfile={userProfile} key={userProfile.id} />))}
+            {
+                profile?.userTypeId === 1 ?
+                    userProfiles.map((userProfile) => (<UserProfile userProfile={userProfile} key={userProfile.id} />))
+                    : ""
+            }
         </div>
     )
 }

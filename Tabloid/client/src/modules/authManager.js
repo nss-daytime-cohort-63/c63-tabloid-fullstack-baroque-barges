@@ -35,10 +35,12 @@ export const me = () => {
     }).then((resp) => resp.json()),
   );
 };
-
-
-
 export const getToken = () => firebase.auth().currentUser.getIdToken();
+
+
+
+
+
 
 
 export const login = (email, pw) => {

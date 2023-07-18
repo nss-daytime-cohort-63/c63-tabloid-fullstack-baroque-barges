@@ -29,3 +29,4 @@ export const TagList = () => {
         </Form>
     );
 };
+export default TagList
