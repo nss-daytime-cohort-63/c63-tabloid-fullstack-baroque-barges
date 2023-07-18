@@ -30,6 +30,13 @@ namespace Tabloid.Controllers
             return Ok(_postRepository.CurrentUsersPosts(userId));
         }
 
+        [HttpGet("PostDetails/{id}")]
+        public IActionResult GetPostById(int id)
+        {
+            return Ok(_postRepository.GetPublishedPostById(id));
+        }
+
+
         private int GetCurrentUserProfileId()
         {
             string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
