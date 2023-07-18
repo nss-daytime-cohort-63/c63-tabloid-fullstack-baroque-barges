@@ -341,3 +341,7 @@ healthchecksdb
 
 *.swp
 appsettings.Local.json
+appsettings.Local.json
+appsettings.json
+Tabloid.csproj
+Properties/
