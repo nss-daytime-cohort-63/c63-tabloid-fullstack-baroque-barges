@@ -9,7 +9,7 @@ namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TagController : Controller
+    public class TagController : ControllerBase
     {
         private readonly ITagRepository _tagRepository;
         public TagController(ITagRepository tagRepository)
@@ -26,6 +26,12 @@ namespace Tabloid.Controllers
         public IActionResult AddTag(Tag tag)
         {
             _tagRepository.AddTag(tag);
+            return Ok(_tagRepository.GetAllTags());
+        }
+        [HttpPut]
+        public IActionResult EditTag(Tag tag)
+        {
+            _tagRepository.UpdateTag(tag);
             return Ok(_tagRepository.GetAllTags());
         }
     }
